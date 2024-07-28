@@ -1,4 +1,4 @@
-package com.hajong.blackboard.ui.theme
+package com.hajong.blackboard.ui.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
