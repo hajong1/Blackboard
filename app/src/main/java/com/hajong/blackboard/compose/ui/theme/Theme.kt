@@ -1,6 +1,5 @@
-package com.hajong.blackboard.ui.ui.theme
+package com.hajong.blackboard.compose.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

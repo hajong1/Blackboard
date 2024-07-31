@@ -1,4 +1,4 @@
-package com.hajong.blackboard.ui.base
+package com.hajong.blackboard.compose.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
