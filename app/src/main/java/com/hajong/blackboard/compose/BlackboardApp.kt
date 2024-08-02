@@ -23,6 +23,7 @@ fun BlackBoardNavHost(
     NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(route = Screen.Home.route) {
             HomeScreen(
+                title = stringResource(Screen.Home.resourceId),
                 onClickItem = {
                     navController.navigate(
                         route = Screen.Detail.route

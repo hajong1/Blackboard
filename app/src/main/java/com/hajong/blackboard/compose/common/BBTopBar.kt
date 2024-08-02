@@ -52,6 +52,31 @@ fun BasicBBTopBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun HomeBBTopBar(
+    modifier: Modifier = Modifier,
+    title: String = "",
+    end: @Composable RowScope.() -> Unit = {},
+    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
+    scrollBehavior: TopAppBarScrollBehavior? = null
+) {
+    BBTopBar(
+        title = {
+            Text(
+                text = title,
+                modifier = Modifier
+            )
+        },
+        modifier = modifier,
+        end = end,
+        windowInsets = windowInsets,
+        colors = colors,
+        scrollBehavior = scrollBehavior
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 private fun BBTopBar(
     modifier: Modifier = Modifier,
     title: @Composable () -> Unit = {},
