@@ -1,10 +1,16 @@
 package com.hajong.blackboard.compose.home
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
@@ -15,6 +21,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.hajong.blackboard.R
 import com.hajong.blackboard.compose.common.BasicImage
 import com.hajong.blackboard.compose.common.HomeBBTopBar
@@ -26,20 +37,12 @@ fun HomeScreen(
     title: String,
     onClickItem: () -> Unit = {}
 ) {
-    Scaffold(
-        modifier = Modifier,
-        topBar = {
-            HomeBBTopBar(
-                title = title,
-                modifier = Modifier
-            )
-        }
-    ) { paddingValues ->
-        HomeScreen(
-            modifier = Modifier.padding(paddingValues),
-            onClickItem = onClickItem
-        )
-    }
+    HomeScreen(
+        modifier = Modifier
+            .statusBarsPadding()
+            .fillMaxSize(),
+        onClickItem = onClickItem
+    )
 }
 
 @Composable
@@ -47,21 +50,25 @@ private fun HomeScreen(
     modifier: Modifier = Modifier,
     onClickItem: () -> Unit = {},
 ) {
-    Column(
-        modifier = modifier
+    Box(
+        modifier = Modifier
             .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
     ) {
+        LocalImage(
+            id = R.drawable.img_blackboard,
+            modifier = Modifier
+                .fillMaxSize()
+        )
         LazyColumn(
             state = rememberLazyListState(),
-            modifier = Modifier,
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item {
-                LocalImage(
-                    id = R.drawable.img_blackboard,
+                HomeHeader(
                     modifier = Modifier
+                        .padding(vertical = 40.dp)
                 )
             }
             items(20) {
@@ -83,5 +90,17 @@ private fun HomeScreen(
 private fun HomeHeader(
     modifier: Modifier = Modifier
 ) {
-    
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Black Board.",
+            fontSize = 40.sp,
+            fontFamily = FontFamily(Font(R.font.chalkboard_regular)),
+            color = Color.White,
+            modifier = Modifier
+        )
+    }
 }
