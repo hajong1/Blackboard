@@ -1,6 +1,7 @@
 package com.hajong.blackboard.compose.common
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -56,6 +57,8 @@ fun LocalImage(
     Image(
         painter = painterResource(id),
         contentDescription = null,
-        modifier
+        contentScale = ContentScale.Crop,
+        modifier = modifier
+            .animateContentSize()
     )
 }
