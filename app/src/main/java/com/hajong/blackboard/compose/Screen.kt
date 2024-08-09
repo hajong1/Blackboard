@@ -10,5 +10,5 @@ sealed class Screen(
 ) {
     data object Home : Screen("home", R.string.Home)
     data object List : Screen("list", R.string.List)
-    data object Detail : Screen("detail", R.string.Detail)
+    data object Detail : Screen("detail/{contentId}", R.string.Detail)
 }

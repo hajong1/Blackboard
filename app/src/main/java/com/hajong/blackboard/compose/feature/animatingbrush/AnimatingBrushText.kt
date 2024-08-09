@@ -1,4 +1,4 @@
-package com.hajong.blackboard.compose.feature
+package com.hajong.blackboard.compose.feature.animatingbrush
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -41,7 +41,7 @@ fun AnimatingBrushText(
     val brush = when (type) {
         1 -> candyCaneAnimation(fontSize = fontSize)
         2 -> rockingAnimation()
-        3 -> waveAnimation(fontSize = fontSize)
+        3 -> waveAnimation()
         else -> candyCaneAnimation(fontSize = fontSize)
     }
 
@@ -121,21 +121,22 @@ private fun rockingAnimation(): Brush {
     return brush
 }
 
-// 공사중
 @Composable
-private fun waveAnimation(
-    fontSize: TextUnit
-): Brush {
+private fun waveAnimation(): Brush {
     val infiniteTransition = rememberInfiniteTransition(label = "")
 
-    val gradient = listOf(Color(0xFFF74B98), Color(0xFF47DAFF))
+    val gradient = listOf(
+        Color(0xFFF74B98),
+        Color(0xFFF74B98),
+        Color(0xFF47DAFF),
+        Color(0xFFF74B98),
+    )
 
     val offset by infiniteTransition.animateFloat(
         initialValue = 0.1f,
-        targetValue = 0.5f,
+        targetValue = 4f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart,
+            animation = tween(durationMillis = 2000, easing = LinearEasing)
         ),
         label = ""
     )
@@ -145,14 +146,12 @@ private fun waveAnimation(
             override fun createShader(size: Size): Shader {
                 val width = size.width
                 val height = size.height
-                val widthOffset = width * offset
-                val heightOffset = height * offset
-                val radius = (offset * width) / 2
+                val radius = (offset * maxOf(width, height)) / 2
                 return RadialGradientShader(
                     colors = gradient,
                     center = Offset(width / 2f, height / 2f),
                     radius = radius,
-                    tileMode = TileMode.Repeated
+                    tileMode = TileMode.Clamp
                 )
             }
         }
