@@ -52,12 +52,13 @@ fun BasicImage(
 @Composable
 fun LocalImage(
     @DrawableRes id: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    scale: ContentScale = ContentScale.Crop
 ) {
     Image(
         painter = painterResource(id),
         contentDescription = null,
-        contentScale = ContentScale.Crop,
+        contentScale = scale,
         modifier = modifier
             .animateContentSize()
     )

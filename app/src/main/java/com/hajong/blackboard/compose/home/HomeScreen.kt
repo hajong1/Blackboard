@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -26,30 +28,56 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.hajong.blackboard.R
 import com.hajong.blackboard.compose.common.BasicImage
 import com.hajong.blackboard.compose.common.HomeBBTopBar
 import com.hajong.blackboard.compose.common.LocalImage
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    navController: NavController,
     title: String,
-    onClickItem: () -> Unit = {}
 ) {
     HomeScreen(
+        navController = navController,
         modifier = Modifier
             .statusBarsPadding()
             .fillMaxSize(),
-        onClickItem = onClickItem
     )
 }
 
 @Composable
 private fun HomeScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
-    onClickItem: () -> Unit = {},
 ) {
+
+    val list = HomeUiStatus(
+        items = buildList {
+            add(
+                HomeUiStatus.HomeList(
+                    id = "animatingBrushText",
+                    title = "Animating Brush Text",
+                )
+            )
+            add(
+                HomeUiStatus.HomeList(
+                    id = "shimmer",
+                    title = "Shimmer",
+                )
+            )
+            repeat(22) {
+                add(
+                    HomeUiStatus.HomeList(
+                        id = "",
+                        title = "Coming Soon ${it}",
+                    )
+                )
+            }
+        }
+    )
+
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -71,13 +99,25 @@ private fun HomeScreen(
                         .padding(vertical = 40.dp)
                 )
             }
-            items(20) {
+            itemsIndexed(list.items) { _, item ->
                 Button(
-                    onClick = onClickItem,
+                    onClick = {
+                        navController.navigate("detail/${item.id.ifBlank { "empty" }}")
+                    },
+                    colors = ButtonColors(
+                        containerColor = Color.Unspecified,
+                        contentColor = Color(0xFFF8F8F8),
+                        disabledContainerColor = Color.Unspecified,
+                        disabledContentColor = Color.Unspecified
+                    ),
                     modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 80.dp)
                 ) {
                     Text(
-                        text = "Go List Screen",
+                        text = item.title,
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.chalkboard_regular)),
                         modifier = Modifier
                     )
                 }
