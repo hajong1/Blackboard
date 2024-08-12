@@ -51,7 +51,7 @@ fun BlackBoardNavHost(
             DetailScreen(
                 title = stringResource(Screen.Detail.resourceId),
                 onClickBack = { navController.navigateUp() },
-                backStackEntry.arguments?.getString("contentId") ?: ""
+                path = backStackEntry.arguments?.getString("contentId") ?: ""
             )
         }
     }

@@ -67,6 +67,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.io.coil.compose)
 
+    implementation(libs.compose.colorpicker)
+
     // Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

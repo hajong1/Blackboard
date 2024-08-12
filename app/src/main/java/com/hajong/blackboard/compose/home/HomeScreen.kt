@@ -67,6 +67,12 @@ private fun HomeScreen(
                     title = "Shimmer",
                 )
             )
+            add(
+                HomeUiStatus.HomeList(
+                    id = "calendar",
+                    title = "Calendar",
+                )
+            )
             repeat(22) {
                 add(
                     HomeUiStatus.HomeList(

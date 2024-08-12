@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hajong.blackboard.compose.common.BasicBBTopBar
 import com.hajong.blackboard.compose.empty.EmptyContainer
 import com.hajong.blackboard.compose.feature.animatingbrush.AnimatingBrushTextContainer
+import com.hajong.blackboard.compose.feature.calendar.CalendarContainer
 import com.hajong.blackboard.compose.feature.shimmer.ShimmerContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,8 +43,9 @@ private fun DetailScreen(
     viewModel: DetailViewModel = viewModel(),
 ) {
     when(path) {
-        "animatingBrushText" -> AnimatingBrushTextContainer()
+        "animatingBrushText" -> AnimatingBrushTextContainer(modifier)
         "shimmer" -> ShimmerContainer()
+        "calendar" -> CalendarContainer(modifier)
         else -> EmptyContainer()
     }
 
