@@ -35,14 +35,15 @@ import androidx.compose.ui.unit.sp
 fun AnimatingBrushText(
     text: String,
     type: Int,
+    colorSet: Pair<Long, Long>,
     modifier: Modifier = Modifier,
     fontSize: TextUnit = 50.sp,
 ) {
     val brush = when (type) {
-        1 -> candyCaneAnimation(fontSize = fontSize)
-        2 -> rockingAnimation()
-        3 -> waveAnimation()
-        else -> candyCaneAnimation(fontSize = fontSize)
+        1 -> candyCaneAnimation(fontSize, colorSet)
+        2 -> rockingAnimation(colorSet)
+        3 -> waveAnimation(colorSet)
+        else -> candyCaneAnimation(fontSize, colorSet)
     }
 
     Column(
@@ -64,13 +65,14 @@ fun AnimatingBrushText(
 
 @Composable
 private fun candyCaneAnimation(
-    fontSize: TextUnit
+    fontSize: TextUnit,
+    colorSet: Pair<Long, Long>,
 ): Brush {
     val infiniteTransition = rememberInfiniteTransition(label = "")
     val currentFontSizePx = with(LocalDensity.current) {
         fontSize.toPx()
     }
-    val gradient = listOf(Color(0xFFF74B98), Color(0xFF47DAFF))
+    val gradient = listOf(Color(colorSet.first), Color(colorSet.second))
 
     val offset by infiniteTransition.animateFloat(
         initialValue = 0f,
@@ -89,7 +91,9 @@ private fun candyCaneAnimation(
 }
 
 @Composable
-private fun rockingAnimation(): Brush {
+private fun rockingAnimation(
+    colorSet: Pair<Long, Long>,
+): Brush {
     val infiniteTransition = rememberInfiniteTransition(label = "")
 
     val offset by infiniteTransition.animateFloat(
@@ -102,7 +106,7 @@ private fun rockingAnimation(): Brush {
         label = ""
     )
 
-    val gradient = listOf(Color(0xFFF74B98), Color(0xFF47DAFF))
+    val gradient = listOf(Color(colorSet.first), Color(colorSet.second))
 
     val brush = remember(offset) {
         object : ShaderBrush() {
@@ -122,14 +126,16 @@ private fun rockingAnimation(): Brush {
 }
 
 @Composable
-private fun waveAnimation(): Brush {
+private fun waveAnimation(
+    colorSet: Pair<Long, Long>,
+): Brush {
     val infiniteTransition = rememberInfiniteTransition(label = "")
 
     val gradient = listOf(
-        Color(0xFFF74B98),
-        Color(0xFFF74B98),
-        Color(0xFF47DAFF),
-        Color(0xFFF74B98),
+        Color(colorSet.second),
+        Color(colorSet.second),
+        Color(colorSet.first),
+        Color(colorSet.second),
     )
 
     val offset by infiniteTransition.animateFloat(
@@ -165,5 +171,6 @@ private fun ABTPreview() {
     AnimatingBrushText(
         text = "컨트롤러의 커맨드를 받아 모델이 \n자신을 변경하면 Dependents에 \nchanged: 메시지를 발송한다.",
         type = 3,
+        colorSet = (0xFFF74B98 to 0xFF47DAFF),
     )
 }
