@@ -1,6 +1,6 @@
 [versions]
-agp = "8.5.0"
-kotlin = "1.9.0"
+agp = "8.7.1"
+kotlin = "2.0.0"
 coreKtx = "1.13.1"
 fragmentKtx = "1.7.1"
 junit = "4.13.2"
@@ -13,6 +13,8 @@ navCompose = "2.7.7"
 coilCompose = "2.7.0"
 composeBom = "2024.06.00"
 colorpicker = "1.1.2"
+googleService = "4.4.2"
+firebaseBom = "33.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,6 +38,8 @@ io-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "
 
 compose-colorpicker = { module = "com.github.skydoves:colorpicker-compose", version.ref = "colorpicker" }
 
+google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom"}
+google-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -43,5 +47,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleService" }
 
