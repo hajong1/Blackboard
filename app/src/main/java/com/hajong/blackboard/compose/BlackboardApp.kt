@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.hajong.blackboard.compose.detail.DetailScreen
+import com.hajong.blackboard.compose.sub.SubScreen
 import com.hajong.blackboard.compose.home.HomeScreen
 import com.hajong.blackboard.compose.list.ListScreen
 
@@ -51,7 +52,14 @@ fun BlackBoardNavHost(
             DetailScreen(
                 title = stringResource(Screen.Detail.resourceId),
                 onClickBack = { navController.navigateUp() },
-                path = backStackEntry.arguments?.getString("contentId") ?: ""
+                path = backStackEntry.arguments?.getString("contentId") ?: "",
+                navController = navController,
+            )
+        }
+        composable(route = Screen.Sub.route) {
+            SubScreen(
+                title = stringResource(Screen.Sub.resourceId),
+                onClickBack = { navController.navigateUp() }
             )
         }
     }

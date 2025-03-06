@@ -73,6 +73,12 @@ private fun HomeScreen(
                     title = "Calendar",
                 )
             )
+            add(
+                HomeUiStatus.HomeList(
+                    id = "compression",
+                    title = "Compression",
+                )
+            )
             repeat(22) {
                 add(
                     HomeUiStatus.HomeList(
