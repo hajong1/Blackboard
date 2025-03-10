@@ -9,9 +9,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.hajong.blackboard.compose.detail.DetailScreen
-import com.hajong.blackboard.compose.sub.SubScreen
 import com.hajong.blackboard.compose.home.HomeScreen
 import com.hajong.blackboard.compose.list.ListScreen
+import com.hajong.blackboard.compose.upload.UploadScreen
 
 @Composable
 fun BlackboardApp() {
@@ -56,9 +56,9 @@ fun BlackBoardNavHost(
                 navController = navController,
             )
         }
-        composable(route = Screen.Sub.route) {
-            SubScreen(
-                title = stringResource(Screen.Sub.resourceId),
+        composable(route = Screen.Upload.route) {
+            UploadScreen(
+                title = stringResource(Screen.Upload.resourceId),
                 onClickBack = { navController.navigateUp() }
             )
         }

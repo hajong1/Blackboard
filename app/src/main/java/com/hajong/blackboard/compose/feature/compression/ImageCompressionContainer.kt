@@ -57,7 +57,7 @@ fun ImageCompressionContainer(
     ) {
         Button(
             onClick = {
-                navController.navigate("sub")
+                navController.navigate("upload")
             }
         ) {
             Text(text = "갤러리에서 고르기")

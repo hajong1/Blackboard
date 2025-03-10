@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.google.services)
 }
 
@@ -67,6 +68,10 @@ dependencies {
     implementation(libs.io.coil.compose)
 
     implementation(libs.compose.colorpicker)
+
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // firebase
     implementation(platform(libs.google.firebase.bom))
