@@ -11,5 +11,5 @@ sealed class Screen(
     data object Home : Screen("home", R.string.Home)
     data object List : Screen("list", R.string.List)
     data object Detail : Screen("detail/{contentId}", R.string.Detail)
-    data object Sub : Screen("sub", R.string.Sub)
+    data object Upload : Screen("upload", R.string.Upload)
 }

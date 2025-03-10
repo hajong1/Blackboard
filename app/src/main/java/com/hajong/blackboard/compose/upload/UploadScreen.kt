@@ -1,8 +1,6 @@
-package com.hajong.blackboard.compose.sub
+package com.hajong.blackboard.compose.upload
 
-import android.Manifest
 import android.net.Uri
-import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -28,7 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,23 +38,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.hajong.blackboard.compose.common.BasicBBTopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SubScreen(
+fun UploadScreen(
     title: String,
     onClickBack: () -> Unit,
+    viewModel: UploadViewModel = hiltViewModel()
 ) {
-    var selectedImages by remember { mutableStateOf<List<Uri>>(emptyList()) }
+
+    val itemList by viewModel.itemList.collectAsState()
 
     // Multiple images picker using GetMultipleContents
     val multipleImagesLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetMultipleContents()
     ) { uris: List<Uri> ->
-        selectedImages = uris
+        viewModel.addItems(uris)
     }
 
     Scaffold(
@@ -81,12 +83,12 @@ fun SubScreen(
         ) {
             // Display instructions
             Text(
-                text = "Selected Images (${selectedImages.size})",
+                text = "Selected Images (${itemList.size})",
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
             // Display grid of selected images
-            if (selectedImages.isNotEmpty()) {
+            if (itemList.isNotEmpty()) {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(3),
                     contentPadding = PaddingValues(4.dp),
@@ -94,7 +96,7 @@ fun SubScreen(
                         .weight(1f)
                         .fillMaxWidth()
                 ) {
-                    items(selectedImages) { uri ->
+                    items(itemList) { uri ->
                         ImageItem(uri = uri)
                     }
                 }
@@ -130,7 +132,7 @@ fun SubScreen(
                 }
 
                 Button(
-                    onClick = { selectedImages = emptyList() },
+                    onClick = viewModel::clearItemList,
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = 8.dp),
