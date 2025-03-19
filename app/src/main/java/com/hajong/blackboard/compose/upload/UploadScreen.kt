@@ -69,7 +69,9 @@ fun UploadScreen(
                 onClickBack = onClickBack,
                 end = {
                     TextButton(
-                        onClick = {} // 압축 시작
+                        onClick = {
+                            viewModel.startUploadItems()
+                        } // 압축 시작
                     ) {
                         Text(text = "압축")
                     }
