@@ -25,6 +25,7 @@ object FileUtil {
         context: Context,
         uriList: List<Uri>
     ): List<MultipartBody.Part>? {
+        val startTime = System.currentTimeMillis()
         return try {
             withContext(Dispatchers.IO) {
                 val fileList = mutableListOf<MultipartBody.Part>()
@@ -36,6 +37,7 @@ object FileUtil {
                         fileList.add(filePart)
                     }
                 }
+                Log.d("[지용]", "[${getElapsedTime(startTime)}]")
                 fileList.takeIf { it.isNotEmpty() }
             }
         } catch (e: Exception) {
@@ -143,4 +145,5 @@ object FileUtil {
         }
         return inSampleSize
     }
+    private fun getElapsedTime(startTime: Long): String = "처리 시간 ${System.currentTimeMillis() - startTime}ms"
 }
